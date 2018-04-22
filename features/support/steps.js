@@ -1,12 +1,16 @@
+"use strict";
+
 const { Given, When, Then } = require('cucumber')
 const chai = require('chai')
 const should = chai.should()
+const webdriverio = require('webdriverio');
+const options = { desiredCapabilities: { browserName: 'chrome' } };
+const browser = webdriverio.remote(options);
 
-"use strict";
 
 
 Given('I go to duck duck go', function(callback) {
-  this.browser
+  browser
     .init()
     .url('https://duckduckgo.com/').then(function() {
       callback();
@@ -14,7 +18,7 @@ Given('I go to duck duck go', function(callback) {
 })
 
 When('I search for WebdriverIO', function(callback) {
-  this.browser
+  browser
     .setValue('#search_form_input_homepage', 'WebdriverIO')
     .click('#search_button_homepage').then(function(){
       callback();
